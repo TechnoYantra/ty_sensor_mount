@@ -2,7 +2,9 @@
 <robot name="ty_sensor_mount" xmlns:xacro="http://www.ros.org/wiki/xacro">
 
 <xacro:include filename="$(find ty_sensor_mount)/urdf/materials.xacro" />
-<xacro:include filename="$(find ty_sensor_mount)/urdf/ty_sensor_mount.gazebo" />
+<xacro:include filename="$(find ty_sensor_mount)/gazebo/ty_sensor_mount_materials.gazebo" />
+<xacro:include filename="$(find ty_sensor_mount)/gazebo/ty_sensor_mount_physics.gazebo" />
+<xacro:include filename="$(find ty_sensor_mount)/gazebo/ty_sensor_mount_plugins.gazebo" />
 
 <link name="world"/>
 
