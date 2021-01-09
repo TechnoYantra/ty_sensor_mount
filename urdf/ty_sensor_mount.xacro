@@ -10,7 +10,8 @@
 <xacro:include filename="$(find realsense_ros_gazebo)/xacro/tracker.xacro"/>
 <xacro:include filename="$(find realsense_ros_gazebo)/xacro/depthcam.xacro"/>
 
-<link name="world"/>
+<xacro:macro name="ty_sensor" params="name:=ty_sensor parent *origin">
+
 
 <link name="sensor_mount_base">
   <inertial>
@@ -23,7 +24,7 @@
     <geometry>
       <mesh filename="package://ty_sensor_mount/meshes/sensor_mount_base.stl" scale="0.001 0.001 0.001"/>
     </geometry>
-    <material name="silver"/>
+    <material name="ty_color"/>
   </visual>
   <collision>
     <origin rpy="0 0 0" xyz="0 0 0"/>
@@ -44,7 +45,7 @@
     <geometry>
       <mesh filename="package://ty_sensor_mount/meshes/lidar_base.stl" scale="0.001 0.001 0.001"/>
     </geometry>
-    <material name="silver"/>
+    <material name="ty_color"/>
   </visual>
   <collision>
     <origin rpy="0 0 0" xyz="0.062 0.02 -0.1524"/>
@@ -65,7 +66,7 @@
     <geometry>
       <mesh filename="package://ty_sensor_mount/meshes/lidar.stl" scale="0.001 0.001 0.001"/>
     </geometry>
-    <material name="silver"/>
+    <material name="ty_color"/>
   </visual>
   <collision>
     <origin rpy="0 0 0" xyz="0.02 -0.0 -0.2001"/>
@@ -87,10 +88,17 @@
 
 <!--#####################  JOINTS  ##########################-->
 
+<!--
 <joint name="world_joint" type="fixed">
   <origin rpy="0 0 0" xyz="0.02 0 0"/>
   <parent link="world"/>
   <child link="sensor_mount_base"/>
+</joint>
+-->
+<joint name="${name}_joint" type="fixed">
+  <xacro:insert_block name="origin" />
+  <parent link="${parent}"/>
+  <child link="sensor_mount_base" />
 </joint>
 
 <joint name="Rigid1" type="fixed">
@@ -104,5 +112,7 @@
   <parent link="lidar_base"/>
   <child link="lidar"/>
 </joint>
+
+</xacro:macro>
 
 </robot>
